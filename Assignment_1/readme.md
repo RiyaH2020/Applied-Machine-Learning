@@ -9,7 +9,7 @@ This repository contains a prototype for SMS spam classification.
 Functions to:
 
 - Load the data from a given file path
-- Preprocess the data (if needed)
+- Preprocess the data 
 - Split the data into train/validation/test sets
 - Store the splits at:
   - `train.csv`
@@ -27,5 +27,5 @@ Functions to:
 - Fit on train data
 - Score on train and validation data
 - Evaluate on train and validation data
-- Fine-tune hyperparameters using train and validation data (if necessary)
+- Fine-tune hyperparameters using train and validation data 
 - Score three benchmark models on test data and select the best one
