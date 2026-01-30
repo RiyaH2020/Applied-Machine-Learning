@@ -11,3 +11,8 @@ Applied-Machine-Learning/
 └── Assignment_1/
     ├── prepare.ipynb   # Data loading, exploration, and preprocessing
     └── train.ipynb     # Model training, evaluation, and benchmark selection
+    └── SMSSpamCollection    # Dataset
+    └── train.csv    # train split
+    └── validation.csv    # validation split
+    └── test.csv    # test split
+    
