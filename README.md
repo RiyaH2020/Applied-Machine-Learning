@@ -4,7 +4,10 @@ Repository for coursework assignments in **Applied Machine Learning**.
 
 ## Structure
 
+## Project Structure
+
+```text
 Applied-Machine-Learning/
 └── Assignment_1/
-├── prepare.ipynb # Data preprocessing and exploration
-└── train.ipynb # Model training and evaluation
+    ├── prepare.ipynb   # Data loading, exploration, and preprocessing
+    └── train.ipynb     # Model training, evaluation, and benchmark selection
