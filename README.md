@@ -1,4 +1,4 @@
-### Applied Machine Learning - Jan-Apr 2026
+## Applied Machine Learning - Jan-Apr 2026
 
 Repository for coursework assignments in **Applied Machine Learning**.
 
