@@ -15,4 +15,6 @@ Applied-Machine-Learning/
     └── train.csv    # train split
     └── validation.csv    # validation split
     └── test.csv    # test split
-    
+└── Assignment_2/
+    ├── prepare.ipynb   # DVC
+    └── train.ipynb     # MLFlow
