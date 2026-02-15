@@ -1,4 +1,4 @@
-### Assignment 2 – DVC & MLflow
+### Assignment 2 - DVC & MLflow
 
 This assignment demonstrates a reproducible machine learning workflow using:
 
