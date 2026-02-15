@@ -1,4 +1,4 @@
-# Assignment 2 – DVC & MLflow
+### Assignment 2 – DVC & MLflow
 
 This assignment demonstrates a reproducible machine learning workflow using:
 
@@ -7,7 +7,7 @@ This assignment demonstrates a reproducible machine learning workflow using:
 
 ---
 
-## Part 1 - Data Version Control (prepare.ipynb)
+### Part 1 - Data Version Control (prepare.ipynb)
 
 - Loaded raw dataset and saved as `raw_data.csv`
 - Split into:
@@ -24,7 +24,7 @@ This assignment demonstrates a reproducible machine learning workflow using:
 
 ---
 
-## Part 2 -  Experiment Tracking (train.ipynb)
+### Part 2 -  Experiment Tracking (train.ipynb)
 
 - Created MLflow experiment: `SMS_Spam_Classification`
 - Built and registered 3 benchmark models:
@@ -42,7 +42,7 @@ This assignment demonstrates a reproducible machine learning workflow using:
 
 ---
 
-## Evaluation Metric
+### Evaluation Metric
 
 Primary metric used: **AUCPR (Area Under Precision-Recall Curve)**  
 Suitable for imbalanced spam classification.
