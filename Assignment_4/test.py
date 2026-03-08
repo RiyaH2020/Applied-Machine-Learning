@@ -272,41 +272,93 @@ def test_invalid_text_type_json(client):
 # DOCKER TEST
 # =======================================================
 
+# ------------------------------------------------------------------
+# Docker configuration
+# ------------------------------------------------------------------
+DOCKER_IMAGE = "aml-flask-app"
+DOCKER_CONTAINER = "test_container"
+DOCKER_HOST_PORT = 5000
+DOCKER_BASE_URL = f"http://127.0.0.1:{DOCKER_HOST_PORT}"
 
-# =======================================================
-# DOCKER TEST
-# =======================================================
+
+def _docker_cmd(cmd):
+    """Run a docker CLI command."""
+    return subprocess.run(cmd, shell=True, capture_output=True, text=True)
+
+
+def _wait_for_container(url, retries=10, delay=1):
+    """Wait until the container endpoint becomes reachable."""
+    for _ in range(retries):
+        try:
+            r = requests.get(url)
+            if r.status_code == 200:
+                return True
+        except:
+            pass
+        time.sleep(delay)
+    return False
+
 
 def test_docker():
+    """
+    Docker integration test:
+      1. Build docker image
+      2. Run container
+      3. Send request to /score endpoint
+      4. Validate response
+      5. Stop and remove container
+    """
 
-    # Build docker image
-    subprocess.run(["docker", "build", "-t", "aml-flask-app", "."], check=True)
+    # --------------------------------------------------------------
+    # Step 0: Remove any leftover container
+    # --------------------------------------------------------------
+    _docker_cmd(f"docker rm -f {DOCKER_CONTAINER}")
 
-    # Run docker container
-    subprocess.run([
-        "docker", "run", "-d",
-        "-p", "5000:5000",
-        "--name", "test_container",
-        "aml-flask-app"
-    ], check=True)
+    # --------------------------------------------------------------
+    # Step 1: Build image
+    # --------------------------------------------------------------
+    build = _docker_cmd(f"docker build -t {DOCKER_IMAGE} .")
+    assert build.returncode == 0, f"Docker build failed:\n{build.stderr}"
 
-    time.sleep(5)
-
-    url = "http://127.0.0.1:5000/score"
-    payload = {"text": "Congratulations you won a free prize"}
+    # --------------------------------------------------------------
+    # Step 2: Run container
+    # --------------------------------------------------------------
+    run = _docker_cmd(
+        f"docker run -d -p {DOCKER_HOST_PORT}:5000 --name {DOCKER_CONTAINER} {DOCKER_IMAGE}"
+    )
+    assert run.returncode == 0, f"Docker run failed:\n{run.stderr}"
 
     try:
-        response = requests.post(url, json=payload)
+
+        # ----------------------------------------------------------
+        # Step 3: Wait for Flask app to start
+        # ----------------------------------------------------------
+        assert _wait_for_container(DOCKER_BASE_URL), "Container did not start in time"
+
+        # ----------------------------------------------------------
+        # Step 4: Send scoring request
+        # ----------------------------------------------------------
+        payload = {"text": "Congratulations you won a free prize"}
+
+        response = requests.post(
+            f"{DOCKER_BASE_URL}/score",
+            json=payload
+        )
 
         assert response.status_code == 200
 
-        result = response.json()
+        data = response.json()
 
-        assert "prediction" in result
-        assert "propensity" in result
-        assert isinstance(result["prediction"], bool)
-        assert isinstance(result["propensity"], float)
+        assert "prediction" in data
+        assert "propensity" in data
+
+        assert isinstance(data["prediction"], bool)
+        assert isinstance(data["propensity"], float)
 
     finally:
-        subprocess.run(["docker", "stop", "test_container"], check=True)
-        subprocess.run(["docker", "rm", "test_container"], check=True)
+
+        # ----------------------------------------------------------
+        # Step 5: Cleanup container
+        # ----------------------------------------------------------
+        _docker_cmd(f"docker stop {DOCKER_CONTAINER}")
+        _docker_cmd(f"docker rm {DOCKER_CONTAINER}")
