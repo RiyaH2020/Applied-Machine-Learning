@@ -16,15 +16,19 @@ The assignment is divided into two parts:
 
 ## Repository Structure 
 
+## Repository Structure  
+
+```bash
 Assignment_5/
 │
 ├── Task_1_Chicken_Duck/
-│ └── chicken_vs_duck.ipynb
+│   └── chicken_vs_duck.ipynb
 │
 ├── Task_2_Sentiment_analysis/
-│ └── sentiment_analysis.ipynb
+│   └── sentiment_analysis.ipynb
 │
 └── readme.md
+```
 
 
 
