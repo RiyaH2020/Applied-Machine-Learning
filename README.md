@@ -22,10 +22,18 @@ Applied-Machine-Learning/
 │   ├── train.ipynb              # Experiment tracking using MLflow
 │   └── dvc.yaml / dvc.lock      # (if applicable)
 │
-└── Assignment_3/
-    ├── app.py                   # Flask application for model serving
-    ├── score.py                 # Scoring function with threshold logic
-    ├── test.py                  # Unit and integration tests (pytest)
-    ├── CSVC_best_model.pkl      # Final calibrated LinearSVC model
-    └── coverage.txt             # Test coverage report
+├── Assignment_3/
+|   ├── app.py                   # Flask application for model serving
+|   ├── score.py                 # Scoring function with threshold logic
+|   ├── test.py                  # Unit and integration tests (pytest)
+|   ├── CSVC_best_model.pkl      # Final calibrated LinearSVC model
+|   └── coverage.txt             # Test coverage report
+├── Assignment_4
+└── Assignment_5/
+│    ├── Task_1_Chicken_Duck/
+│        └── chicken_vs_duck.ipynb
+│    ├── Task_2_Sentiment_analysis/
+│      └── sentiment_analysis.ipynb
+└──  └── readme.md
+
      
